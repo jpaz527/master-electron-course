@@ -46,9 +46,10 @@ header {
 
 #search {
   flex-grow: 1;
+  overflow: scroll;
 }
 
-#items {
+main {
   flex-grow: 1;
 }
 
@@ -93,4 +94,18 @@ header {
 
 #add-item {
   margin-left: 25px;
+}
+
+.read-item {
+  display: flex;
+  align-items: center;
+  align-content: center;
+  border-bottom: lightgray 2px solid;
+  background: #FAFAFA;
+  padding: 10px;
+}
+
+.read-item img {
+  width: 20%;
+  margin-right: 25px;
 }
