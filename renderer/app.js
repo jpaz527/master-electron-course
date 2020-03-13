@@ -8,6 +8,23 @@ let modal = document.querySelector("#modal");
 let addItem = document.querySelector("#add-item");
 let itemUrl = document.querySelector("#url");
 
+// Disable/enable modal buttons
+
+const toggleModalButtons = () => {
+  if(addItem.disabled === true) {
+    addItem.disabled = false;
+    addItem.style.opacity = 1;
+    addItem.innerText = 'Add Item';
+    closeModal.style.display = 'inline';
+  } else {
+    addItem.disabled = true;
+    addItem.style.opacity = 0.5;
+    addItem.innerText = 'Adding...';
+    closeModal.style.display = 'none';
+  }
+}
+
+
 // Show modal
 showModal.addEventListener("click", e => {
   modal.style.display = "flex";
@@ -25,6 +42,9 @@ addItem.addEventListener("click", e => {
     console.log(`Item URL: ${itemUrl.value}`);
     
     ipcRenderer.send('new-item', itemUrl.value);
+
+    //Disable buttons
+    toggleModalButtons();
   }
 });
 
@@ -37,4 +57,10 @@ itemUrl.addEventListener("keyup", e => {
 ipcRenderer.on('new-item-success', (e, newItem) => {
   console.log(newItem);
   
+  //Enable buttons
+  toggleModalButtons();
+
+  // Hide modal and clear value;
+  modal.style.display = 'none';
+  itemUrl.value = '';
 })
